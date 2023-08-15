@@ -1,0 +1,17 @@
+#airtimeBox{
+  border-radius: 5px;
+  border-left: 2px solid  #1D2335;
+  border-top: 2px solid  #1D2335;
+  padding: 35px;
+  /* display: none; */
+  display: flex;
+  width: 45%;
+  min-height: 60vh;
+  /* align-items: center; */
+  justify-content: center;
+  margin: 7% auto;
+  flex-direction: column;
+  gap: 5px;
+  /* box-shadow: 200px; */
+  background: linear-gradient(rgba(20, 30, 30, 0.7), rgba(20, 30, 30, 0.4));
+}
