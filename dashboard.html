@@ -10,59 +10,147 @@
   <link rel="stylesheet" href="dashboard.css">
 </head>
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"> -->
-<body>
-  <header >
+<body onload="getCurrentUserIdent()">
+  <header>
     <h3 class="text-light text-center">Welcome back <span id="loginUserName"></span></h3>
     <hr>
   </header>
   <div id="forUserDetails" class="">
-    <span class=""><button class="btn text-light bg-secondary">Show balance</button></span>
+    <span class="">
+      <button class="btn btn-primary btn-sm" id="forHidBtn" onclick="hidBal()">Hide balance</button>
+      <button class="btn btn-primary btn-sm" onclick="shoBal()" id="forShoBtn" style="display: none;">Show balance</button></span>
+      <div class="text-light ms-4 gap-0 lh-none">
+      <h2>Welcome, <p id="loginUsernames" class="d-inline fw-bold fs-4"></p></h2>
+      <p>Balance:<span id="balance"></span></p>
+      <p id="accountNo"></p>
+    </div>
   </div>
-  <button data-bs-toggle="modal" data-bs-target="#exampleModal">We all</button>
   <div id="grid-item-container" class="container-fluid">
     <div class="grid-item" onclick="Airtime()" data-bs-toggle="modal" data-bs-target="#exampleModal1"><img src="./assets/icons/money-airtime.svg" alt="">
     <h6>Purchase Airtime</h6></div>
+    <!-- <div class="grid-item" onclick="Airtime()" data-bs-toggle="modal" data-bs-target="#exampleModal1"><img src="./assets/icons/money-airtime.svg" alt="">
+    <h6>Purchase Airtime</h6></div> -->
     <div class="grid-item" onclick="TransferFund()"><img src="./assets/icons/money-transfer.svg" alt="" style="width: 60%;"><h6>Transfer Fund</h6></div>
     <div class="grid-item" onclick="withdralFund()"><img src="./assets/icons/money-withdraw.svg" alt="eithdraw-icon">
     <h6>Withdrawal</h6></div>
     <div class="grid-item" onclick="addFund()"><img src="./assets/icons/money-deposit.svg" alt=""><h6>Add Fund</h6></div>
     <div class="grid-item" onclick="payBills()"><img src="./assets/icons/money-payment.svg" alt=""><h6>Pay Bills</h6></div>
     <div class="grid-item" onclick="checkHistory()"><img src="./assets/icons/money-history.svg" alt="History"><h6>Check History</h6></div>
+    <div class="grid-item" onclick="cardPage()"><img src="./assets/icons/money-cards.svg" alt="Card" style="width: 60%;"><h6>Cards</h6></div>
     <div  onclick="others()" class="grid-item"><img src="./assets/icons/money-others.svg" alt="Others"><h6>Others</h6></div>
-    <div class="grid-item"><img src="./assets/icons/money-cards.svg" alt="Card" style="width: 60%;"><h6>Cards</h6></div>
     <div class="grid-item">9</div>
+    <div class="text-center">
+      <a href="./index.html" class="btn btn-primary">Home</a>
+      <a href="" class="btn btn-warning" onclick="logOut()">Log Out</a>
+    </div>
   </div>
-     <!-- Button trigger modal -->
-     <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Task history
-    </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Airtime Modal -->
+    <div class="modal fade text-primary" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Purchase Airtime</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body text-center" style="height: 200px; background-color: #499CD6;">
-            <h5 class="text-light">Airtime Purchase</h5>
+          <div class="modal-body text-center" style="height: 250px; background-color: #499CD6;">
+            <!-- <h5 class="text-light">Airtime Purchase</h5> -->
             <hr>
+            <ol class="">
+              <a href="#mySelf" class="text-start text-decoration-none text-light">
+                <li id="airtimeSelf" class="fs-3">Airtime-self</li>
+              </a>
+              <a href="#other" class="text-start text-decoration-none text-light">
+                <li id="airtimeOther" class="fs-3">Airtime-other</li>
+              </a>
+              <a href="#sub" class="text-start text-decoration-none text-light">
+                <li id="subscription" class="fs-3">Subscription</li>
+              </a>
+            </ol>
+            <hr>
+            <div class="selfAir m-0 " id="mySelf" style="display: none;">
+              <input type="number" name="" id="selfNumAir" class="form-control my-2" placeholder="Enter The Amount">
+              <a href="" class="btn btn-warning" onclick="addAirtimeSelf()">Proceed</a>
+              <a href="" id="cancelTrans" class="btn btn-danger">Wait</a>
+            </div>
+            <div class="selfAir m-0 " id="other" style="display: none;">
+              <input type="number" name="" id="partyNumAir" class="form-control my-2" placeholder="Enter Your Number">
+              <select name="for Airtime" id="networkSelect" class="form-control">
+                <option value="mtn">SELECT NETWORK</option>
+                <option value="mtn">MTN</option>
+                <option value="mtn">AIRTEL</option>
+                <option value="mtn">GLO</option>
+                <option value="mtn">ETiSALAT</option>
+              </select>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
           </div>
         </div>
       </div>
     </div>
-    <!-- <script src="./js/bootstrap.js" defer></script> -->
-    <script src="./bootstrap-5.1.3-dist/js/bootstrap.js"></script>
-  <script>
-    function youPresMe(){
-      alert("you press me")
+    <script>
+      const hidBal = () =>{
+        balance.style.display = "none"
+        forShoBtn.style.display = "inline" 
+        forHidBtn.style.display = "none" 
+      }
+      const shoBal = () =>{
+        balance.style.display = "inline"
+        forShoBtn.style.display = "none" 
+        forHidBtn.style.display = "inline" 
+      }
+      const getCurrentUserIdent = () =>{
+        let currentLogin = localStorage.getItem("currentLogin") 
+        let allUsers = JSON.parse(localStorage.getItem("bankUsers"))
+        if(currentLogin){
+          // currentLogin = document.getElementById("loginUsernameAcctNo")
+            for(let i = 0; i < allUsers.length; i++){
+              if (allUsers[i].signUpEmail === currentLogin){
+                document.getElementById("loginUsernames").innerText = `${allUsers[i].signUpFirstname} ${allUsers[i].signUpLastname}`
+                document.getElementById("balance").innerText = ` $${allUsers[i].accountBalance}`
+                document.getElementById("accountNo").innerHTML = `<p>Account No: ${allUsers[i].forAcctNo}</p>`
+                console.log(allUsers[i]);
+              }                 
+
+            }
+          }else{
+            // this person has not signIn
+           window.open("index.html", "_self")
+          }
+      }
+    function Airtime(){
+      // window.open("./making-transaction/airtime-purchase.html", "_self")
+      window.location.href = "./making-transaction/airtime-purchase.html"
+    }
+    const withdralFund = () =>{
+      window.open("./making-transaction/withdrawal.html", "_self")
+    }
+    
+    const TransferFund = () =>{
+      window.open("../making-transaction/transfer-page.html", "_self")
+    }
+    const addFund = () =>{
+      window.open("../making-transaction/add-fund.html", "_self")
+    }
+    const payBills = () =>{
+      window.open("../making-transaction/pay-bills.html", "_self")
+      
+    }
+    const checkHistory = () =>{
+      window.open("../making-transaction/transaction-His.html", "_self")
+    }
+    const cardPage = () =>{
+      window.location.href = "../making-transaction/cards-page.html"
+    }
+    const logOut = () =>{
+      localStorage.removeItem("currentLogin")
+      window.open("index.html", "_self")
     }
   </script>
 
+<script src="./bootstrap-5.1.3-dist/js/bootstrap.js"></script>
 </body>
 </html>

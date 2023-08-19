@@ -13,7 +13,7 @@
     </video> 
   <div class="signInWrapper">
     <div id="signInBox" class="">
-      <h2 class="fw-medium text-center text-success display-4">Welcome</h2>
+      <h2 class="fw-normal text-center text-success display-4">Welcome!</h2>
         <h4 class="text-center fw-bolder text-light">Sign-in your<span class="text-warning"> *Account* </span>Here</h4>
     <form action="">
     <label class="mb-0" for="loginUserName">Email\Username<span class="text-danger fw-bold">*</span></label>
@@ -78,8 +78,9 @@
           if(confirmLogin < 0){
             alert("invalid account bro")
           }else{
-            alert("Welcome bro")
-
+            localStorage.setItem("currentLogin", loginUserEmail) 
+            alert("Welcome")
+            window.open('dashboard.html', '_self')
           }
         }
   </script>

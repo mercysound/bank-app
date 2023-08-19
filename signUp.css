@@ -56,6 +56,13 @@ body{
     /* margin-top: 70px; */
   }
   
+  /* @media screen and (max-width:750px){
+    #boxOne{
+      width: 90% !important;
+      margin: auto;
+    }
+  } */
+  
   #boxTwo{
     border-radius: 5px;
     border-left: 2px solid  #1D2335;
@@ -75,11 +82,13 @@ body{
 
   @media screen and (max-width:800px) {
     div{
-        width: 85% !important
+        width: 85% !important;
+        margin: auto;
     }
 } 
 label{
-    color:#40196D ;
+    color: black;
+    /* color: #0d62e2; */
     margin-left: 5px;
     font-weight: bold;
 }

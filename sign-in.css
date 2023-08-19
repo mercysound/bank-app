@@ -31,15 +31,23 @@
   flex-direction: column;
   gap: 20px;
   /* box-shadow: 200px; */
-  background: linear-gradient(rgba(20, 30, 30, 0.7), rgba(20, 30, 30, 0.4));
+  background: linear-gradient(rgba(169, 176, 189, 0.2), rgba(8, 86, 231, 0.3));
+}
+@media screen and (max-width:750px){
+  #signInBox{
+    width: 90%;
+  }
+  #signInBox label{
+    margin-left: 8px;
+  }
 }
 .signInWrapper{
   width: 100%;
 }
 label{
-  color: white ;
+  color: black ;
   margin-left: 5px;
-  font-weight: bold;
+  font-weight: bolder;
 }
 .password{
 /* display: inline-block; */

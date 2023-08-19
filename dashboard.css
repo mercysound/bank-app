@@ -16,7 +16,7 @@ header{
 }
 
 #forUserDetails{
-  background-color:#f5c945;
+  /* background-color: white; */
   /* background-color: (rgba(225, 199, 199, 0.9), rgba(63, 240, 63, 0.3)); */
   height: 20vh;
   /* background-color:#CB8234; */
@@ -29,7 +29,7 @@ header{
   margin-bottom: 10px;
 
 }
-#forUserDetails span{
+#forUserDetails span button{
   float: right;
 }
 

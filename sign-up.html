@@ -19,7 +19,7 @@
     <div id="boxOne" class="handlingForm fw-bold shadow" style="color: white;">
       <div class="forTitle text-center">
         <h2 class="display-4">Welcome,</h2>
-        <p class="text-warning">Please type in your details to sign-up and create a new <strong>MSBank</strong> account</p>
+        <p class="text-warning">Please type in your details to sign-up and create a new <strong class="text-light">MSBank</strong> account</p>
         <small id="allEmptyIn" class="text-danger"></small>
       </div>
       <label id="fFirstName" for="forFirstName">First Name<span class="text-danger">*</span></label>
@@ -41,8 +41,8 @@
       <!-- <label id="fGender" for="forGender">Gender<span class="text-danger">*</span></label> -->
       <select name="" id="userSignUpGenders" class="py-2 rounded-3">
         <option  value="">Gender</option>
-        <option value="maleGender" id="mGender">Male</option>
-        <option value="femaleGender" id="fGender">Female</option>
+        <option value="male" id="mGender">Male</option>
+        <option value="female" id="fGender">Female</option>
       </select>
         
       <!-- <span class="d-flex">
@@ -74,7 +74,7 @@
         <!-- <input type="button" class="btn btn-rounded" name="Button" id> -->
         
 
-        <h6 class="text-center my-3 text-primary">Home</h6>
+        <a href="./index.html" class="text-center my-1 text-primary display-6 text-decoration-none">Home</a>
       </div>
     </div>
     <!-- start create pin -->
@@ -223,7 +223,7 @@
     signUpEmail: forEmail.value,
     signUpPhoneNo: forPhoneNo.value,
     signupDob: dob.value,
-    signUpGenders: userSignUpGenders,
+    signUpGenders: userSignUpGenders.value,
     signUpUserPass: password.value,
     signUpUserPassCon: passwordConfirm.value,
     userTransactionPIN: fPin.value,
