@@ -30,53 +30,55 @@
   </div> -->
   <script>
     const withdrawFund = () =>{
+      let withdraw = withdrawAmt.value; 
       let allUsers = JSON.parse(localStorage.getItem("bankUsers"))
       let currentUser = localStorage.getItem("currentLogin")
-      let withdraw = withdrawAmt.value; 
-      let check = allUsers.findIndex(u => u.signUpEmail == currentUser)
-      if(withdraw <= 0){
-        alert("enter amount")
-      }else{
-        if(check >= 0){
-          let userPinConfirm = prompt(`Enter your Pin to complete $ credit`)
-          for(let i = 0; i < allUsers.length; i++){ 
-              if(allUsers[i].userTransactionPIN == userPinConfirm){
-                allUsers[i].accountBalance -= Number(withdraw)
+      let currentUserIndex = allUsers.findIndex(u => u.signUpEmail == currentUser)
+      
+      // let check = allUsers.findIndex(u => u.signUpEmail == currentUser)
+      if(currentUser){
+        if(withdrawAmt.value == ''){
+          alert("Input the amount")
+        }else{
+          let userPinConfirm = prompt(`Enter your Pin to complete $${withdraw} credit`)
+              // alert("ever")
+            if(allUsers[currentUserIndex].userTransactionPIN == userPinConfirm){
+              if(allUsers[currentUserIndex].accountBalance < Number(withdraw)){
+                alert("you have insufficient balance")
+              }else{
+                allUsers[currentUserIndex].accountBalance -= Number(withdraw)
                 localStorage.setItem("bankUsers", JSON.stringify(allUsers))
+                withdrawAmt.value = "";
+                alert("You have successfully withdraw $" + withdraw + " Press 'OK' Button to  continue")
                 withdrawAmt.focus()
-                withdrawAmt.value = ""
-
-              }
-              // break
-            }
-            }
-            // console.log(allUsers);
-          
-          
-            
+                console.log(allUsers[currentUserIndex]);
+        let dateAdd = new Date()
+        let timeAdd = new Date()
+        let addFund = {
+          transType: "Debit",
+          amtFund: `${withdraw}`,
+          avaiBal: `${allUsers[currentUserIndex].accountBalance}`,
+          discript:  "Cash Withdraw",
+          dateFund: dateAdd.toLocaleDateString(),
+          timeFund: timeAdd.toLocaleTimeString() 
         }
-      let accountHistory = []
-      let dateAdd = new Date()
-      let timeAdd = new Date()
-      let allHisLoca = JSON.parse(localStorage.getItem("userHis"))
-       
-      let addFund = {
-        transType: "Debit",
-        amtFund: `$${withdraw}`,
-        avaiBal: allUsers[0].accountBalance,
-        discript:  "Cash Withdraw",
-        dateFund: dateAdd.toLocaleDateString(),
-        timeFund: timeAdd.toLocaleTimeString()
-      }
-      if(allHisLoca){
-        accountHistory = allHisLoca
-        accountHistory.push(addFund)
-        localStorage.setItem("userHis", JSON.stringify(accountHistory))
-      }else{
-        accountHistory.push(addFund)
-        localStorage.setItem("userHis", JSON.stringify(accountHistory))
+        if(currentUser){
+        // accountHistory = allHisLoca
+        let tranHis = allUsers[currentUserIndex].transaction
 
+        tranHis.push(addFund)
+        localStorage.setItem("bankUsers", JSON.stringify(allUsers))
       }
+        
+              }
+              
+            }else{
+              alert("Not corret pin")
+            }
+      }
+      }
+     
+      
       }
   </script>
   <script src="../bootstrap-5.1.3-dist/js/bootstrap.js"></script>

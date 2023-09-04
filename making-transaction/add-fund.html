@@ -30,64 +30,64 @@
     <a href="../dashboard.html" class="btn btn-dark text-light text-decoration-none">Go back</a>
   </div> -->
   <script>
+    // const forAddFund = () => {
+    //   let allUsers = JSON.parse(localStorage.getItem("bankUsers"))
+    //   let AmtWithraw = AddAmt.value
+    //   let currentUser = localStorage.getItem("currentLogin")
+    //   let currentUserIndex = allUsers.findIndex(u => u.signUpEmail == currentUser)
+    //   console.log(currentUserIndex);
+    // }
     const forAddFund = () =>{
       let balanceAdd = AddAmt.value;
       console.log(balanceAdd);
       let allUsers = JSON.parse(localStorage.getItem("bankUsers"))
       let currentUser = localStorage.getItem("currentLogin")
-      // if(currentUser)
+      let currentUserIndex = allUsers.findIndex(u => u.signUpEmail == currentUser)
       if(currentUser){
         if(AddAmt.value == ''){
           alert("Input the amount")
         }else{
-          for(let i = 0; i < allUsers.length; i++){
-            if(allUsers[i].signUpEmail == currentUser){
+          // for(let i = 0; i < allUsers.length; i++)
+            if(allUsers[currentUserIndex].signUpEmail == currentUser){
                 let userPinConfirm = prompt(`Enter your Pin to complete $${balanceAdd} credit`)
-            if(allUsers[i].userTransactionPIN == userPinConfirm){
-              allUsers[i].accountBalance += Number(balanceAdd)
+            if(allUsers[currentUserIndex].userTransactionPIN == userPinConfirm){
+              allUsers[currentUserIndex].accountBalance += Number(balanceAdd)
   localStorage.setItem("bankUsers", JSON.stringify(allUsers))
   AddAmt.value = "";
             alert("You have successfully add $" + balanceAdd + " Press 'OK' Button to  continue")
             AddAmt.focus()
-  // updateUsersLocal()
+  // let accountHistory = []
+  let dateAdd = new Date()
+      let timeAdd = new Date()
+      // let allHisLoca = JSON.parse(localStorage.getItem("userHis"))
+      
+      let addFund = {
+        transType: "Credit",
+        amtFund: `${balanceAdd}`,
+        avaiBal: `${allUsers[currentUserIndex].accountBalance}`,
+        discript:  "Cash Deposit",
+        dateFund: dateAdd.toLocaleDateString(),
+        timeFund: timeAdd.toLocaleTimeString()
+      }
+      if(currentUser){
+        let tranHis = allUsers[currentUserIndex].transaction
+        // accountHistory = allHisLoca
+        tranHis.push(addFund)
 
-              console.log(allUsers[i]);
+        // accountHistory.push(addFund)
+        // console.log(allUsers[currentUser]);
+        localStorage.setItem("bankUsers", JSON.stringify(allUsers))
+      }
+
+              console.log(allUsers[currentUserIndex]);
               
             }else{
               alert("Not corret pin")
             }
           }
-        }
       }
-      }
-     
-      let accountHistory = []
-      let dateAdd = new Date()
-      let timeAdd = new Date()
-      let allHisLoca = JSON.parse(localStorage.getItem("userHis"))
-      
-      let addFund = {
-        transType: "Credit",
-        amtFund: `${balanceAdd}`,
-        avaiBal: allUsers[0].accountBalance,
-        discript:  "Cash Deposit",
-        dateFund: dateAdd.toLocaleDateString(),
-        timeFund: timeAdd.toLocaleTimeString()
-      }
-      if(allHisLoca){
-      accountHistory = allHisLoca
-      accountHistory.push(addFund)
-      localStorage.setItem("userHis", JSON.stringify(accountHistory))
-    }else{
-        accountHistory.push(addFund)
-        localStorage.setItem("userHis", JSON.stringify(accountHistory))
-
       }
     }
-    
-    // let fundHistory = {
-  
-    // }
   </script>
   <script src="../bootstrap-5.1.3-dist/js/bootstrap.js"></script>
 </body>

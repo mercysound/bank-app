@@ -62,7 +62,7 @@
       <form>
         <label id="fPasswordConfirm" class="mt-0" id="forpassword-confirm">Confirm Password<span class="text-danger fw-bold">*</span></label>
         <div class="password-confirm rounded-3 ">
-          <input type="password-confirm" placeholder="Confirm Password" id="passwordConfirm" class="form-control rounded-3">
+          <input type="password" placeholder="Confirm Password" id="passwordConfirm" class="form-control rounded-3">
           <img src="pass-hide-confirm.png" onclick="clickTwo()" class="pass-icon-confirm " id="pass-icon-confirm">
         </div>
       </form>
@@ -204,7 +204,8 @@
   let regexforLName = /^([A-Z][\w]+)$/;
   let regexforMail  = /^([\w]+)([@])([\w]+)([.])([\w]+)$/;
   let regexforPhone  = /^([\d]{11})$/;
-  let regexforPass  = /^([\w]{6,9})$/;
+  // let regexforPass  = /^([\w]{6,9})$/;
+  let regexforPass  = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   let regexforPIN  = /^([\d]{4})$/;
 
   
@@ -237,13 +238,14 @@
     forExpireDate: expiryDate.toLocaleDateString(),
     profilePicture:myImg.src
   }
+
+
   
     
-  //     if(forFirstName.value == '' || forLastName.value == "" || forUsername.value == '' ||  forEmail.value == '' || forPhoneNo.value== '' || dob.value == '' || userSignUpGenders.value == '' || password.value == '' ||  passwordConfirm.value == ''){
-  //   allEmptyIn.innerText = "Ensure to complete filling the form!!"
-  // }
-  // else
-   if(!regexforFName.test(forFirstName.value)){
+      if(forFirstName.value == '' || forLastName.value == "" || forUsername.value == '' ||  forEmail.value == '' || forPhoneNo.value== '' || dob.value == '' || userSignUpGenders.value == '' || password.value == '' ||  passwordConfirm.value == ''){
+    allEmptyIn.innerText = "Ensure to complete your form filling!!"
+  }
+  else if(!regexforFName.test(forFirstName.value)){
       // if(!regexforFName.test(forFirstName.value)){
         fFirstName.innerHTML = `<small class='text-danger'>Your Firstname must start with Uppercase!!!</small>`
       // }else{
@@ -262,32 +264,32 @@
 
     // }
     }
-    //  else if (!regexforMail.test(forEmail.value)){
-    //   // if (!regexforMail.test(forEmail.value)){
-    //     fEmail.innerHTML = `<small class='text-danger'>Input correct email</small>`
-    //   // } else {
-    //   //   fEmail.innerHTML = `<small class='text-success'>Success</small>`
-    //   // }
-    // } else if (!regexforPhone.test(forPhoneNo.value)){
-    //   // if (!regexforPhone.test(forPhoneNo.value)){
-    //     fPhoneNo.innerHTML = `<small class='text-danger'>Input correct Phone Number</small>`
-    //   // } else {
-    //   //   fPhoneNo.innerHTML = `<small class='text-success'>Success</small>`
-    //   // }
-    // } else if (!regexforPass.test(password.value)){
-    //   // if (!regexforPass.test(password.value)){
-    //     fPassword.innerHTML = `<small class='text-danger'>Your password should not minimum 6 and maximum 9 character</small>`
-    //   // } else {
-    //   //   fPassword.innerHTML = `<small class='text-success'>Success</small>`
-    //   // }
-    // }else if (password.value !=  passwordConfirm.value){
-    //   // if (!regexforPass.test(password.value)){
-    //     fPassword.innerHTML = `<small class='text-danger'>Transaction PIN not match!!!</small>`
-    //     fPasswordConfirm.innerHTML = `<small class='text-danger'>Transaction PIN not match!!!</small>`
-    //   // } else {
-    //   //   fPassword.innerHTML = `<small class='text-success'>Success</small>`
-    //   // }
-    // }
+     else if (!regexforMail.test(forEmail.value)){
+      // if (!regexforMail.test(forEmail.value)){
+        fEmail.innerHTML = `<small class='text-danger'>Input correct email</small>`
+      // } else {
+      //   fEmail.innerHTML = `<small class='text-success'>Success</small>`
+      // }
+    } else if (!regexforPhone.test(forPhoneNo.value)){
+      // if (!regexforPhone.test(forPhoneNo.value)){
+        fPhoneN.innerHTML = `<small class='text-danger'>Input correct Phone Number</small>`
+      // } else {
+      //   fPhoneNo.innerHTML = `<small class='text-success'>Success</small>`
+      // }
+    } else if (!regexforPass.test(password.value)){
+      // if (!regexforPass.test(password.value)){
+        fPassword.innerHTML = `<small class='text-danger'>Use at least Uppercase and Lowercase letter, digits and special character, with minimum of 8 characters</small>`
+      // } else {
+      //   fPassword.innerHTML = `<small class='text-success'>Success</small>`
+      // }
+    }else if (password.value !=  passwordConfirm.value){
+      // if (!regexforPass.test(password.value)){
+        fPassword.innerHTML = `<small class='text-danger'>Password not match!!!</small>`
+        fPasswordConfirm.innerHTML = `<small class='text-danger'>Password not match!!!</small>`
+      // } else {
+      //   fPassword.innerHTML = `<small class='text-success'>Success</small>`
+      // }
+    }
     else {
       // forFirstName.value = ''
       // forLastName.value = ''
@@ -308,16 +310,17 @@
     }
   
   const createPin = () =>{
-    allUsers = JSON.parse(localStorage.getItem("bankUsers"))
+    let allUsers = JSON.parse(localStorage.getItem("bankUsers"))
     let arrayLenght = allUsers.length
     let lastRegUserIndex = Number(arrayLenght-1)
     console.log(lastRegUserIndex);
     if(fPin.value == '' || fPinConfirm.value == ''){
-    forPin.innerHTML = `<small class="text-danger"> Transaction PIN must contain 4 DIGITS!!!</small>`
+    forpin.innerHTML = `<small class="text-danger"> Transaction PIN must contain 4 DIGITS!!!</small>`
     }else if (!regexforPIN.test(fPin.value)){
-    forPin.innerHTML = `<small class="text-danger"> Transaction PIN must contain 4 DIGITS!!!</small>`
+    forpin.innerHTML = `<small class="text-danger"> Transaction PIN must contain 4 DIGITS!!!</small>`
     }else if (fPin.value != fPinConfirm.value){
-    forPin.innerHTML = `<small class="text-danger"> Transaction PIN not match!!!</small>`
+    forpin.innerHTML = `<small class="text-danger"> Transaction PIN not match!!!</small>`
+    forPinConfirm.innerHTML = `<small class="text-danger"> Transaction PIN not match!!!</small>`
     }else{
       allUsers[lastRegUserIndex].userTransactionPIN = fPin.value;
       localStorage.setItem('bankUsers', JSON.stringify(allUsers))

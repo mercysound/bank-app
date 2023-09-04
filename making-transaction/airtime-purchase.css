@@ -1,7 +1,9 @@
 body{
   /* height: 100vh; */
-  /* width: 100%; */
-  background-color: azure;
+  width: 100%;
+  /* background: blue; */
+  background-color: #E9EBEC !important;
+  /* background: #499CD6 ; */
   padding: 0px;
   margin: 0px;
 }
@@ -10,7 +12,7 @@ body{
   border-radius: 5px;
   border-left: 2px solid  #1D2335;
   border-top: 2px solid  #1D2335;
-  padding: 40px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -27,27 +29,27 @@ body{
   }
 }
 
-/* for card */
+/* for card detail */
 @keyframes scale {
   0%{
-    transform: rotate(0deg);
+    transform: rotateY(0deg);
   }
   100%{
-    transform: rotate(360deg);
+    transform: rotateY(360deg);
   }
 }
 #cardFront:hover{
   animation-name: scale;
   animation-duration: 2000ms;
   /* animation-iteration-count: 1; */
-  /* animation-fill-mode: forwards; */
+  animation-fill-mode: forwards;
   animation-delay: 100ms;
 }
 #cardBack:hover{
   animation-name: scale;
   animation-duration: 2000ms;
   /* animation-iteration-count: 1; */
-  /* animation-fill-mode: forwards; */
+  animation-fill-mode: forwards;
   animation-delay: 100ms;
 }
 @media screen and (max-width: 750px){

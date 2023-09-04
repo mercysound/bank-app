@@ -6,14 +6,18 @@
   <title>Dashboard page</title>
   <link rel="stylesheet" href="./bootstrap-5.1.3-dist/css/bootstrap.css" />
   <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
-
   <link rel="stylesheet" href="dashboard.css">
 </head>
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous"> -->
 <body onload="getCurrentUserIdent()">
   <header>
     <h3 class="text-light text-center">Welcome back <span id="loginUserName"></span></h3>
-    <hr>
+    <hr class="p-0 m-0">
+    <marquee class="m-0 p-0 text-light fw-bold bg-primary" behavior="" direction="left">Enjoy Diverse Unlimited possibilities! Millions of uses with with <strong>MSBank</strong> of Africa || Your MSBank account is the key to opening up endless options. Make international payments, receive and send funds, pay for services, set up subscriptions or use auto-pay features</marquee>
+    <hr class="p-0 m-0">
   </header>
   <div id="forUserDetails" class="">
     <span class="">
@@ -35,62 +39,18 @@
     <h6>Withdrawal</h6></div>
     <div class="grid-item" onclick="addFund()"><img src="./assets/icons/money-deposit.svg" alt=""><h6>Add Fund</h6></div>
     <div class="grid-item" onclick="payBills()"><img src="./assets/icons/money-payment.svg" alt=""><h6>Pay Bills</h6></div>
-    <div class="grid-item" onclick="checkHistory()"><img src="./assets/icons/money-history.svg" alt="History"><h6>Check History</h6></div>
+    <div class="grid-item" onclick="checkHistory()"><img src="./assets/icons/money-history.svg" alt="History" ><h6>Check History</h6></div>
     <div class="grid-item" onclick="cardPage()"><img src="./assets/icons/money-cards.svg" alt="Card" style="width: 60%;"><h6>Cards</h6></div>
     <div  onclick="others()" class="grid-item"><img src="./assets/icons/money-others.svg" alt="Others"><h6>Others</h6></div>
-    <div class="grid-item">9</div>
-    <div class="text-center">
-      <a href="./index.html" class="btn btn-primary">Home</a>
-      <a href="" class="btn btn-warning" onclick="logOut()">Log Out</a>
+    <div class="grid-item">
+      <h6>TRANSACTION CHART</h6>
+      <canvas id="myChart" style="width:100%; height: 85%;"></canvas>
     </div>
   </div>
-
-    <!-- Airtime Modal -->
-    <div class="modal fade text-primary" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Purchase Airtime</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text-center" style="height: 250px; background-color: #499CD6;">
-            <!-- <h5 class="text-light">Airtime Purchase</h5> -->
-            <hr>
-            <ol class="">
-              <a href="#mySelf" class="text-start text-decoration-none text-light">
-                <li id="airtimeSelf" class="fs-3">Airtime-self</li>
-              </a>
-              <a href="#other" class="text-start text-decoration-none text-light">
-                <li id="airtimeOther" class="fs-3">Airtime-other</li>
-              </a>
-              <a href="#sub" class="text-start text-decoration-none text-light">
-                <li id="subscription" class="fs-3">Subscription</li>
-              </a>
-            </ol>
-            <hr>
-            <div class="selfAir m-0 " id="mySelf" style="display: none;">
-              <input type="number" name="" id="selfNumAir" class="form-control my-2" placeholder="Enter The Amount">
-              <a href="" class="btn btn-warning" onclick="addAirtimeSelf()">Proceed</a>
-              <a href="" id="cancelTrans" class="btn btn-danger">Wait</a>
-            </div>
-            <div class="selfAir m-0 " id="other" style="display: none;">
-              <input type="number" name="" id="partyNumAir" class="form-control my-2" placeholder="Enter Your Number">
-              <select name="for Airtime" id="networkSelect" class="form-control">
-                <option value="mtn">SELECT NETWORK</option>
-                <option value="mtn">MTN</option>
-                <option value="mtn">AIRTEL</option>
-                <option value="mtn">GLO</option>
-                <option value="mtn">ETiSALAT</option>
-              </select>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="text-center my-2">
+    <a href="./index.html" class="btn btn-primary">Home</a>
+    <a href="" class="btn btn-warning" onclick="logOut()">Log Out</a>
+  </div>
     <script>
       const hidBal = () =>{
         balance.style.display = "none"
@@ -112,7 +72,6 @@
                 document.getElementById("loginUsernames").innerText = `${allUsers[i].signUpFirstname} ${allUsers[i].signUpLastname}`
                 document.getElementById("balance").innerText = ` $${allUsers[i].accountBalance}`
                 document.getElementById("accountNo").innerHTML = `<p>Account No: ${allUsers[i].forAcctNo}</p>`
-                console.log(allUsers[i]);
               }                 
 
             }
@@ -122,7 +81,6 @@
           }
       }
     function Airtime(){
-      // window.open("./making-transaction/airtime-purchase.html", "_self")
       window.location.href = "./making-transaction/airtime-purchase.html"
     }
     const withdralFund = () =>{
@@ -149,7 +107,101 @@
       localStorage.removeItem("currentLogin")
       window.open("index.html", "_self")
     }
-  </script>
+   
+   var allUsers = JSON.parse(localStorage.getItem("bankUsers"))
+   const others = () =>{
+     // window.open("./making-transaction/withdrawal.html", "_self")
+     alert("Not available yet")
+   }
+   var currentLogin = (localStorage.getItem("currentLogin"))
+   let currentUserIndex = allUsers.findIndex(u => u.signUpEmail == currentLogin)
+   let currentTransAmmt = allUsers[currentUserIndex].transaction
+   let allTransAmmt = currentTransAmmt.filter(u=>u.discript.includes("Fund Transfer to"))
+   var sendAmtArray = []
+   var sumAmmtArr
+  //  var ammtTrsf = currentTransAmmt.filter(u => u.amtFund == "amtFund")
+  allTransAmmt.map((item, index)=>{
+    let trasf = parseInt(item.amtFund)
+    sendAmtArray.push(trasf)
+    sumAmmtArr = sendAmtArray.reduce((add, newTrans) => add + newTrans, 0)
+  })
+
+  let withdAmtArray = currentTransAmmt.filter(u=>u.discript == "Cash Withdraw")
+  //  console.log(allWithdAmmt)
+   var newWithdAmtArray = []
+   var sumAmmtWithd
+  //  var ammtTrsf = currentTransAmmt.filter(u => u.amtFund == "amtFund")
+  withdAmtArray.map((item, index)=>{
+    let withd = parseInt(item.amtFund)
+    newWithdAmtArray.push(withd)
+    sumAmmtWithd = sendAmtArray.reduce((add, newTrans) => add + newTrans, 0)
+  })
+
+  let credAmtArray = currentTransAmmt.filter(u=>u.discript == "Cash Deposit")
+  //  console.log(allWithdAmmt)
+   var newCashAmtArray = []
+   var sumAmmtCred
+  //  var ammtTrsf = currentTransAmmt.filter(u => u.amtFund == "amtFund")
+  credAmtArray.map((item, index)=>{
+    let credit = parseInt(item.amtFund)
+    newCashAmtArray.push(credit)
+    sumAmmtCred = newCashAmtArray.reduce((add, newTrans) => add + newTrans, 0)
+  })
+
+  let selfairAmtArray = currentTransAmmt.filter(u=>u.discript.includes("Airtime Purchase"))
+  //  console.log(allWithdAmmt)
+   var newselfairAmtArray = []
+   var sumAmmtselfair
+  //  var ammtTrsf = currentTransAmmt.filter(u => u.amtFund == "amtFund")
+  selfairAmtArray.map((item, index)=>{
+    let selfair = parseInt(item.amtFund)
+    newselfairAmtArray.push(selfair)
+    sumAmmtselfair = newselfairAmtArray.reduce((add, newTrans) => add + newTrans, 0)
+  })
+
+  let otherairAmtArray = currentTransAmmt.filter(u=>u.discript.includes("You sent airtime to"))
+  //  console.log(allWithdAmmt)
+   var newOtherairAmtArray = []
+   var sumAmmtOtherair
+  //  var ammtTrsf = currentTransAmmt.filter(u => u.amtFund == "amtFund")
+  otherairAmtArray.map((item, index)=>{
+    let otherair = parseInt(item.amtFund)
+    newOtherairAmtArray.push(otherair)
+    sumAmmtOtherair = newOtherairAmtArray.reduce((add, newTrans) => add + newTrans, 0)
+  })
+
+  const updateLocal = () => {
+    // allUsers[currentUserIndex].transaction.length = 0
+    localStorage.setItem("bankUsers", JSON.stringify(allUsers))
+    
+  }
+  updateLocal()
+
+    // for the transaction chart
+
+    const xValues = ["Transfer", "Withdrawal", "Credit", "Airtime self", "Airtime other"];
+const yValues = [sumAmmtArr, sumAmmtWithd, sumAmmtCred, sumAmmtselfair, sumAmmtOtherair];
+const barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "MSBank Transcation information details"
+    }
+  }
+});
+
+    </script>
 
 <script src="./bootstrap-5.1.3-dist/js/bootstrap.js"></script>
 </body>

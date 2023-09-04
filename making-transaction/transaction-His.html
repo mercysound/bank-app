@@ -41,26 +41,29 @@
   <script>
     // console.log(accountHistory);
     // let accountHistory = [];
-    let accountHistory = JSON.parse(localStorage.getItem("userHis"))
-    let currentLogin = localStorage.getItem("currentLogin") 
+    
     const forHistory = () =>{
+      let allUsers = JSON.parse(localStorage.getItem("bankUsers"))
+      let currentLogin = localStorage.getItem("currentLogin") 
+      let currentUserIndex = allUsers.findIndex(u => u.signUpEmail == currentLogin)
+      let tranHis = allUsers[currentUserIndex].transaction
+      console.log(allUsers[currentUserIndex].transaction);
       // localStorage.setItem("userHis", JSON.stringify(accountHistory))
      let forDisplayhis = "";
     //  console.log(you)
-      accountHistory.map((item, index) => (
+      tranHis.map((item, index) => (
         forDisplayhis += `
         <tr>
           <td>${index+1}</td>
           <td>${item.transType}</td>
-          <td>${item.amtFund}</td>
-          <td>${item.avaiBal}</td>
+          <td>$${item.amtFund}</td>
+          <td>$${item.avaiBal}</td>
           <td>${item.discript}</td>
           <td>${item.dateFund}</td>
           <td>${item.timeFund}</td>
         </tr>`
         ))
         document.getElementById("tableBody").innerHTML = forDisplayhis
-        console.log(accountHistory)
     }
 
 
